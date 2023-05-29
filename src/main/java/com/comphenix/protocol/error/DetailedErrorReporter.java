@@ -17,6 +17,18 @@
 
 package com.comphenix.protocol.error;
 
+import com.comphenix.protocol.ProtocolLogger;
+import com.comphenix.protocol.collections.ExpireHashMap;
+import com.comphenix.protocol.error.Report.ReportBuilder;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.reflect.PrettyPrinter;
+import com.google.common.base.Preconditions;
+import com.google.common.primitives.Primitives;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.ref.WeakReference;
@@ -29,20 +41,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolLogger;
-import com.comphenix.protocol.collections.ExpireHashMap;
-import com.comphenix.protocol.error.Report.ReportBuilder;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.reflect.PrettyPrinter;
-import com.google.common.base.Preconditions;
-import com.google.common.primitives.Primitives;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 
 /**
  * Internal class used to handle exceptions.
@@ -389,14 +387,6 @@ public class DetailedErrorReporter implements ErrorReporter {
         if (Bukkit.getServer() != null) {
             writer.println("Server:");
             writer.println(addPrefix(Bukkit.getServer().getVersion(), SECOND_LEVEL_PREFIX));
-
-            // Inform of this occurrence
-            if (ERROR_PERMISSION != null && ProtocolLibrary.getConfig().isChatWarnings()) {
-                Bukkit.getServer().broadcast(
-                        String.format("Error %s (%s) occurred in %s.", report.getReportMessage(), report.getException(), sender),
-                        ERROR_PERMISSION
-                );
-            }
         }
         
         // Make sure it is reported

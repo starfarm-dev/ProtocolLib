@@ -49,17 +49,15 @@ public class ProtocolLibrary {
     public static final List<String> INCOMPATIBLE = ImmutableList.of("TagAPI");
 
     private static Plugin plugin;
-    private static ProtocolConfig config;
     private static ProtocolManager manager;
     private static ErrorReporter reporter = new BasicErrorReporter();
 
     private static boolean updatesDisabled;
     private static boolean initialized;
 
-    protected static void init(Plugin plugin, ProtocolConfig config, ProtocolManager manager, ErrorReporter reporter) {
+    protected static void init(Plugin plugin, ProtocolManager manager, ErrorReporter reporter) {
         Validate.isTrue(!initialized, "ProtocolLib has already been initialized.");
         ProtocolLibrary.plugin = plugin;
-        ProtocolLibrary.config = config;
         ProtocolLibrary.manager = manager;
         ProtocolLibrary.reporter = reporter;
         initialized = true;
@@ -71,14 +69,6 @@ public class ProtocolLibrary {
      */
     public static Plugin getPlugin() {
         return plugin;
-    }
-
-    /**
-     * Gets ProtocolLib's configuration
-     * @return The config
-     */
-    public static ProtocolConfig getConfig() {
-        return config;
     }
 
     /**

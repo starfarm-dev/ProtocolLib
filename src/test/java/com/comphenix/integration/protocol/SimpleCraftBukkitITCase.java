@@ -68,9 +68,6 @@ public class SimpleCraftBukkitITCase {
             initializePlugin(FAKE_PLUGIN);
             return null;
         }).get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
-
-        // Plugins are now ready
-        ProtocolLibrary.getConfig().setDebug(true);
     }
 
     /**
