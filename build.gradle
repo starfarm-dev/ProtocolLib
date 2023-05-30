@@ -33,6 +33,9 @@ repositories {
 }
 
 dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
     implementation 'net.bytebuddy:byte-buddy:1.14.3'
     compileOnly 'org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT'
     compileOnly 'org.spigotmc:spigot:1.19.4-R0.1-SNAPSHOT'
