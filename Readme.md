@@ -63,7 +63,7 @@ Or use the maven dependency with gradle:
 
 ```gradle
 repositories {
-    maven { url "https://repo.dmulloy2.net/repository/public/" }
+    maven { url "https://repo.starfarm.fun/repository/maven-public/" }
 }
 
 dependencies {
