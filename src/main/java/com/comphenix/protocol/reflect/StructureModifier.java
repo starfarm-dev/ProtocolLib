@@ -25,6 +25,7 @@ import com.comphenix.protocol.reflect.instances.InstanceProvider;
 import com.comphenix.protocol.utility.MinecraftReflection;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 import java.lang.ref.Reference;
 import java.lang.ref.SoftReference;
@@ -32,14 +33,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
@@ -114,9 +108,9 @@ public class StructureModifier<T> {
             boolean requireDefault
     ) {
         List<FieldAccessor> fields = getFields(targetType, superclassExclude);
-        Map<FieldAccessor, Integer> defaults = requireDefault ? generateDefaultFields(fields) : new HashMap<>();
+        Map<FieldAccessor, Integer> defaults = requireDefault ? generateDefaultFields(fields) : new Object2ObjectOpenHashMap<>();
 
-        this.initialize(targetType, Object.class, fields, defaults, null, new HashMap<>());
+        this.initialize(targetType, Object.class, fields, defaults, null, new Object2ObjectOpenHashMap<>());
     }
 
     /**
@@ -138,7 +132,7 @@ public class StructureModifier<T> {
     // Used to generate plausible default values
     private static Map<FieldAccessor, Integer> generateDefaultFields(Collection<FieldAccessor> fields) {
         int currentFieldIndex = 0;
-        Map<FieldAccessor, Integer> requireDefaults = new HashMap<>();
+        Map<FieldAccessor, Integer> requireDefaults = new Object2ObjectOpenHashMap<>();
 
         for (FieldAccessor accessor : fields) {
             Field field = accessor.getField();
@@ -534,7 +528,7 @@ public class StructureModifier<T> {
         StructureModifier<R> result = (StructureModifier<R>) this.subtypeCache.get(fieldType);
         if (result == null) {
             List<FieldAccessor> fields = new ArrayList<>();
-            Map<FieldAccessor, Integer> defaults = new HashMap<>();
+            Map<FieldAccessor, Integer> defaults = new Object2ObjectOpenHashMap<>();
 
             // filter out all fields we don't need
             for (int i = 0; i < this.accessors.size(); i++) {
@@ -621,7 +615,7 @@ public class StructureModifier<T> {
                 filtered,
                 defaults,
                 converter,
-                new HashMap<>());
+                new Object2ObjectOpenHashMap<>());
         return result;
     }
 

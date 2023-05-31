@@ -21,9 +21,12 @@ import com.comphenix.protocol.ProtocolLogger;
 import com.comphenix.protocol.utility.MinecraftReflection;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.kinds.IdF;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
@@ -41,6 +44,7 @@ public class DefaultInstances implements InstanceProvider {
             PrimitiveGenerator.INSTANCE,
             CollectionGenerator.INSTANCE,
             MinecraftGenerator.INSTANCE
+//            UnsafePacketGenerator.INSTANCE
     );
 
     /**

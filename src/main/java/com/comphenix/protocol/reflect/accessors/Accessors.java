@@ -81,7 +81,8 @@ public final class Accessors {
      * @return The field accessor.
      */
     public static FieldAccessor getFieldAccessor(Field field) {
-        return MethodHandleHelper.getFieldAccessor(field);
+        return new UnsafeFieldAccessor(field);
+//        return MethodHandleHelper.getFieldAccessor(field);
     }
 
     /**
