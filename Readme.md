@@ -44,8 +44,8 @@ You can also add ProtocolLib as a Maven dependency:
 ````xml
 <repositories>
   <repository>
-    <id>dmulloy2-repo</id>
-    <url>https://repo.dmulloy2.net/repository/public/</url>
+    <id>starfarm-repo</id>
+    <url>https://repo.starfarm.fun/repository/maven-public/</url>
   </repository>
 </repositories>
 
@@ -53,7 +53,7 @@ You can also add ProtocolLib as a Maven dependency:
   <dependency>
     <groupId>com.comphenix.protocol</groupId>
     <artifactId>ProtocolLib</artifactId>
-    <version>5.0.0</version>
+    <version>5.1.0</version>
     <scope>provided</scope>
   </dependency>
 </dependencies>
