@@ -71,7 +71,7 @@ shadowJar {
 }
 
 test {
-    useJUnitPlatform()
+//    useJUnitPlatform()
 }
 
 processResources {
@@ -106,6 +106,10 @@ publishing {
             }
         }
     }
+}
+
+jar {
+    finalizedBy shadowJar
 }
 
 tasks.withType(JavaCompile) {
