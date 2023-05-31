@@ -5,13 +5,10 @@ plugins {
 }
 
 group = 'com.comphenix.protocol'
-version = '5.1.0-SNAPSHOT'
+version = '5.1.0'
 description = 'Provides access to the Minecraft protocol'
 
-def isSnapshot = version.endsWith('-SNAPSHOT')
-
 repositories {
-    // mavenLocal() // can speed up build, but may fail in CI
     mavenCentral()
 
     maven {
@@ -75,42 +72,29 @@ test {
 }
 
 processResources {
-    def includeBuild = isSnapshot && System.getenv('BUILD_NUMBER')
-    def fullVersion = includeBuild
-        ? version + '-' + System.getenv('BUILD_NUMBER')
-        : version
-
-    eachFile { expand(['version': fullVersion]) }
+    eachFile { expand(['version': version]) }
 }
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-
-            afterEvaluate {
-                artifactId = 'ProtocolLib'
-            }
         }
     }
 
     repositories {
         maven {
-            url isSnapshot
-                ? 'https://repo.dmulloy2.net/repository/snapshots/'
-                : 'https://repo.dmulloy2.net/repository/releases/'
+            url 'https://repo.starfarm.fun/repository/maven-public-releases/'
 
             credentials {
-                username project.nexusUsername
-                password project.nexusPassword
+                username System.getenv("SF_REPO_USER")
+                password System.getenv("SF_REPO_PASSWORD")
             }
         }
     }
 }
 
-jar {
-    finalizedBy shadowJar
-}
+jar.finalizedBy shadowJar
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
