@@ -2,6 +2,8 @@ package com.comphenix.protocol.reflect.accessors;
 
 import com.comphenix.protocol.reflect.ExactReflection;
 import com.comphenix.protocol.reflect.FuzzyReflection;
+import com.comphenix.protocol.utility.MinecraftReflection;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -81,8 +83,15 @@ public final class Accessors {
      * @return The field accessor.
      */
     public static FieldAccessor getFieldAccessor(Field field) {
-        return new UnsafeFieldAccessor(field);
-//        return MethodHandleHelper.getFieldAccessor(field);
+        if (field.getDeclaringClass().getPackageName().startsWith(MinecraftReflection.getMinecraftPackage())) {
+            try {
+                return new UnsafeFieldAccessor(field);
+            } catch (Throwable throwable) {
+                //ignore if record or hidden
+            }
+        }
+
+        return MethodHandleHelper.getFieldAccessor(field);
     }
 
     /**

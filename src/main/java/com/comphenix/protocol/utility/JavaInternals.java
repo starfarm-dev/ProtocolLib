@@ -52,10 +52,14 @@ public class JavaInternals {
                     MethodType.methodType(void.class, String.class)
             ).bindTo(module);
 
-            addOpens("java.lang", "jdk.internal.misc");
+            addOpens("java.lang.invoke", "jdk.internal.misc");
         } catch (Throwable t) {
 
         }
+    }
+
+    public void init() {
+
     }
 
     @SneakyThrows

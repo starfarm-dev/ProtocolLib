@@ -19,10 +19,7 @@ import com.comphenix.protocol.async.AsyncFilterManager;
 import com.comphenix.protocol.error.*;
 import com.comphenix.protocol.injector.InternalManager;
 import com.comphenix.protocol.injector.PacketFilterManager;
-import com.comphenix.protocol.utility.ByteBuddyFactory;
-import com.comphenix.protocol.utility.ChatExtensions;
-import com.comphenix.protocol.utility.MinecraftVersion;
-import com.comphenix.protocol.utility.Util;
+import com.comphenix.protocol.utility.*;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import org.bukkit.Server;
@@ -95,17 +92,14 @@ public class ProtocolLib extends JavaPlugin {
         logger = this.getLogger();
         ProtocolLogger.init(this);
 
+        JavaInternals.init();
+
         // Initialize enhancer factory
         ByteBuddyFactory.getInstance().setClassLoader(this.getClassLoader());
 
         // Add global parameters
         DetailedErrorReporter detailedReporter = new DetailedErrorReporter(this);
         reporter = this.getFilteredReporter(detailedReporter);
-
-        // Configuration
-        this.saveDefaultConfig();
-        this.reloadConfig();
-
         try {
             // Check for other versions
             this.checkConflictingVersions();
